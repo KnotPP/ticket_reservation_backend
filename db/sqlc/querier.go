@@ -9,10 +9,20 @@ import (
 )
 
 type Querier interface {
+	CreateEvent(ctx context.Context, arg CreateEventParams) (Event, error)
+	CreateReservation(ctx context.Context, arg CreateReservationParams) (Reservation, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	DeleteEvent(ctx context.Context, id int32) error
+	DeleteReservation(ctx context.Context, id int32) error
 	DeleteUser(ctx context.Context, id int32) error
+	GetEvent(ctx context.Context, id int32) (Event, error)
+	GetReservation(ctx context.Context, id int32) (Reservation, error)
 	GetUser(ctx context.Context, id int32) (GetUserRow, error)
+	ListEvents(ctx context.Context, arg ListEventsParams) ([]Event, error)
+	ListReservations(ctx context.Context, arg ListReservationsParams) ([]Reservation, error)
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
+	UpdateEvent(ctx context.Context, arg UpdateEventParams) (Event, error)
+	UpdateReservation(ctx context.Context, arg UpdateReservationParams) (Reservation, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (UpdateUserRow, error)
 }
 

@@ -4,6 +4,8 @@ import (
 	"math/rand"
 	"strings"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 var rng *rand.Rand
@@ -17,6 +19,11 @@ func init() {
 
 func RandomInt(min, max int) int {
 	return rng.Intn(max-min) + min
+}
+
+func RandomDecimal(min, max float64) decimal.Decimal {
+	random := min + rng.Float64()*(max-min)
+	return decimal.NewFromFloat(random).Round(2)
 }
 
 func RandomString(n int) string {
@@ -47,4 +54,12 @@ func RandomRole() string {
 	roles := []string{"admin", "event_organizer", "customer"}
 	n := len(roles)
 	return roles[rng.Intn(n)]
+}
+
+func RandomTicketQuota() int32 {
+	return int32(RandomInt(0, 1000))
+}
+
+func RandomPrice() decimal.Decimal {
+	return RandomDecimal(0, 1000)
 }

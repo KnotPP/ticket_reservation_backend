@@ -7,16 +7,18 @@ package db
 import (
 	"database/sql"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 type Event struct {
-	ID          int32     `json:"id"`
-	OrganizerID int32     `json:"organizer_id"`
-	Name        string    `json:"name"`
-	TicketQuota int32     `json:"ticket_quota"`
-	Price       string    `json:"price"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID          int32           `json:"id"`
+	OrganizerID int32           `json:"organizer_id"`
+	Name        string          `json:"name"`
+	TicketQuota int32           `json:"ticket_quota"`
+	Price       decimal.Decimal `json:"price"`
+	CreatedAt   time.Time       `json:"created_at"`
+	UpdatedAt   time.Time       `json:"updated_at"`
 }
 
 type Reservation struct {
