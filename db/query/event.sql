@@ -23,3 +23,9 @@ RETURNING *;
 -- name: DeleteEvent :exec
 DELETE FROM events 
 WHERE id = $1;
+
+-- name: DeductTicketQuota :one
+UPDATE events
+SET ticket_quota = ticket_quota - sqlc.arg(amount)
+WHERE id = sqlc.arg(event_id)
+RETURNING *;

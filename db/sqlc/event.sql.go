@@ -45,6 +45,33 @@ func (q *Queries) CreateEvent(ctx context.Context, arg CreateEventParams) (Event
 	return i, err
 }
 
+const deductTicketQuota = `-- name: DeductTicketQuota :one
+UPDATE events
+SET ticket_quota = ticket_quota - $1
+WHERE id = $2
+RETURNING id, organizer_id, name, ticket_quota, price, created_at, updated_at
+`
+
+type DeductTicketQuotaParams struct {
+	Amount  int32 `json:"amount"`
+	EventID int32 `json:"event_id"`
+}
+
+func (q *Queries) DeductTicketQuota(ctx context.Context, arg DeductTicketQuotaParams) (Event, error) {
+	row := q.db.QueryRowContext(ctx, deductTicketQuota, arg.Amount, arg.EventID)
+	var i Event
+	err := row.Scan(
+		&i.ID,
+		&i.OrganizerID,
+		&i.Name,
+		&i.TicketQuota,
+		&i.Price,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const deleteEvent = `-- name: DeleteEvent :exec
 DELETE FROM events 
 WHERE id = $1

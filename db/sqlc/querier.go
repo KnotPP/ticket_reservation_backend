@@ -12,6 +12,7 @@ type Querier interface {
 	CreateEvent(ctx context.Context, arg CreateEventParams) (Event, error)
 	CreateReservation(ctx context.Context, arg CreateReservationParams) (Reservation, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	DeductTicketQuota(ctx context.Context, arg DeductTicketQuotaParams) (Event, error)
 	DeleteEvent(ctx context.Context, id int32) error
 	DeleteReservation(ctx context.Context, id int32) error
 	DeleteUser(ctx context.Context, id int32) error
